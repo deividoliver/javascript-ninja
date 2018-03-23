@@ -21,7 +21,6 @@ console.log( 'Limpando CPFs:' );
 Usando os CPFs limpos acima, deixe-os com a formatação correta de CPF.
 Ex.: "999.999.999-99"
 Mostre o resultado no console.
-teste
 */
 console.log( '\nFormatando CPFs corretamente:' );
 // ?
