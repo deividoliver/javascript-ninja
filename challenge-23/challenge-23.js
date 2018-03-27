@@ -23,3 +23,147 @@ multiplicação (x), então no input deve aparecer "1+2x".
 input;
 - Ao pressionar o botão "CE", o input deve ficar zerado.
 */
+(function (win, doc) {
+    'use strict';
+
+
+    var $valores = doc.querySelector('[data-js="valores"]');
+
+    var $numeros = doc.querySelectorAll('[data-js="btn"]');
+
+    var $botaoCE = doc.querySelectorAll('[data-js="btn-ce"]');
+
+    var $botaoIgual = doc.querySelectorAll('[data-js="btn-igual"]');
+
+    var $botaoSomar = doc.querySelectorAll('[data-js="btn-somar"]');
+
+    var $botaoSubtrair = doc.querySelectorAll('[data-js="btn-subtrair"]');
+
+    var $botaoMultiplicar = doc.querySelectorAll('[data-js="btn-multiplicar"]');
+
+    var $botaoDividir = doc.querySelectorAll('[data-js="btn-dividir"]');
+
+    Array.prototype.forEach.call($numeros, function (botao) {
+        botao.addEventListener('click', numeroClicado, false);
+    });
+
+    Array.prototype.forEach.call($botaoCE, function (botao) {
+        botao.addEventListener('click', ceClicado, false);
+    });
+
+    Array.prototype.forEach.call($botaoSomar, function (botao) {
+        botao.addEventListener('click', somarClicado, false);
+    });
+
+    Array.prototype.forEach.call($botaoSubtrair, function (botao) {
+        botao.addEventListener('click', subtrairClicado, false);
+    });
+
+    Array.prototype.forEach.call($botaoMultiplicar, function (botao) {
+        botao.addEventListener('click', multiplicarClicado, false);
+    });
+
+    Array.prototype.forEach.call($botaoDividir, function (botao) {
+        botao.addEventListener('click', dividirClicado, false);
+    });
+
+    Array.prototype.forEach.call($botaoIgual, function (botao) {
+        botao.addEventListener('click', calcular, false);
+    });
+
+    function dividirClicado(evento) {
+        var tam = $valores.value.length
+        var temp = $valores.value.slice(tam - 1)
+
+        if (temp == "+" || temp == "-" || temp == "x" || temp == "÷")
+            $valores.value = $valores.value.substring(0, tam - 1) + this.value;
+        else
+            $valores.value += this.value;
+    }
+    function multiplicarClicado(evento) {
+        var tam = $valores.value.length
+        var temp = $valores.value.slice(tam - 1)
+
+        if (temp == "+" || temp == "-" || temp == "x" || temp == "÷")
+            $valores.value = $valores.value.substring(0, tam - 1) + this.value;
+        else
+            $valores.value += this.value;
+    }
+    function subtrairClicado(evento) {
+        var tam = $valores.value.length
+        var temp = $valores.value.slice(tam - 1)
+
+        if (temp == "+" || temp == "-" || temp == "x" || temp == "÷")
+            $valores.value = $valores.value.substring(0, tam - 1) + this.value;
+        else
+            $valores.value += this.value;
+    }
+
+    function somarClicado(evento) {
+        var tam = $valores.value.length
+        var temp = $valores.value.slice(tam - 1)
+
+        if (temp == "+" || temp == "-" || temp == "x" || temp == "÷")
+            $valores.value = $valores.value.substring(0, tam - 1) + this.value;
+        else
+            $valores.value += this.value;
+    }
+
+    function numeroClicado(evento) {
+        $valores.value += this.value;
+    }
+
+    function ceClicado(evento) {
+        $valores.value = "0"
+    }
+
+    function calcular(query) {
+
+        var tam = $valores.value.length
+        var temp = $valores.value.slice(tam - 1)
+        var resultado = 0;
+        if (temp == "+" || temp == "-" || temp == "x" || temp == "÷") {
+            $valores.value = $valores.value.substring(0, tam - 1)
+        } else {
+            console.log($valores.value.match(/(\d+)/g))
+            console.log($valores.value.match(/([-x÷\+])/g))
+            var numeros = $valores.value.match(/(\d+)/g)
+            var operandos = $valores.value.match(/([-x÷\+])/g)
+
+
+            resultado = Number(numeros[0]);
+
+            for (let index = 0, indexNumeros = 1; index < operandos.length; index++) {
+                switch (operandos[index]) {
+                    case "+":
+                        resultado +=  Number(numeros[indexNumeros])
+                        break;
+                    case "-":
+                    resultado -=  Number(numeros[indexNumeros])
+                        break;
+                    case "x":
+                    resultado *=  Number(numeros[indexNumeros])
+                        break;
+                    case "÷":
+                    if(resultado)
+                    resultado /=  Number(numeros[indexNumeros]) 
+                    else
+                    resultado = "Error!"
+                        break;
+                
+                    default:
+                    
+                        break;
+                }
+                indexNumeros++;
+                
+            }
+            $valores.value = resultado
+        }
+
+
+
+
+    }
+
+})(window, document);
